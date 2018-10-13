@@ -21,11 +21,43 @@
                 align-items: center;
             }
             .middle-line {
-                background: white;
-                width: 600px;
                 height: 100%;
                 transform: skewX(-45deg);
-                animation: middle-line-height 2s cubic-bezier(.7, 0, .2, 1);
+                position: absolute;
+            }
+            .white-line {
+                background: white;
+                width: 600px;
+                z-index: 9;
+                animation: white-line-height 2s cubic-bezier(.7, 0, .2, 1);
+            }
+            .yellow-line {
+                background: #feff00;
+                z-index: 1;
+                animation: colored-line-width 1.4s cubic-bezier(1, 0.01, 0.34, 1.01) infinite;
+                animation-delay: 2s;
+                animation-fill-mode: forwards;
+            }
+            .pink-line {
+                background: #ff00ff;
+                z-index: 2;
+                animation: colored-line-width 1.4s cubic-bezier(1, 0.01, 0.34, 1.01) infinite;
+                animation-delay: 2.2s;
+                animation-fill-mode: forwards;
+            }
+            .turquoise-line {
+                background: #00ffff;
+                z-index: 3;
+                animation: colored-line-width 1.4s cubic-bezier(1, 0.01, 0.34, 1.01) infinite;
+                animation-delay: 2.4s;
+                animation-fill-mode: forwards;
+            }
+            .black-line {
+                background: #000;
+                z-index: 4;
+                animation: colored-line-width 1.4s cubic-bezier(1, 0.01, 0.34, 1.01) infinite;
+                animation-delay: 2.6s;
+                animation-fill-mode: forwards;
             }
             .logo-container {
                 position: absolute;
@@ -34,25 +66,105 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                z-index: 10;
             }
             .logo {
-                width: 150px;
+                width: 75px;
             }
 
-            @keyframes middle-line-height {
+            @keyframes white-line-height {
                 0% { height: 0; }
                 100% { height: 100%; }
+            }
+            @keyframes colored-line-width {
+                0% { padding: 300px; }
+                100% { padding: 100%; }
             }
         </style>
     </head>
     <body>
         <div class="animation">
             <div class="middle-line-container">
-                <div class="middle-line"></div>
+                <div class="middle-line white-line"></div>
+                <div class="middle-line yellow-line"></div>
+                <div class="middle-line pink-line"></div>
+                <div class="middle-line turquoise-line"></div>
+                <div class="middle-line black-line"></div>
                 <div class="logo-container">
-                    <img class="logo" src="BigHorrorAthensLogo.svg" />
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <svg class="logo" width="195px" height="367px" viewBox="0 0 195 367" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+                        <title>BigHorrorAthensLogo</title>
+                        <desc>Created with Sketch.</desc>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="BigHorrorAthensLogo" transform="translate(-108, -61)" stroke="#000000" stroke-width="3">
+                                <!-- original triangle: 173.5 47 283.05 236.75 63.95 236.75 -->
+                                <polygon id="logo-top-phase-1" 
+                                            transform="translate(173.5, 223.5) rotate(-30) translate(-173.5, -173.5)" 
+                                            points="173.5 47 195.41 84.95 173.5 47">
+                                    <animate id="logo-top-phase-2"
+                                                dur="600ms"
+                                                to="173.5 47 283.05 236.75 173.5 47"
+                                                attributeName="points"
+                                                fill="freeze"
+                                                begin="shape.click"
+                                    />
+                                    <animate id="logo-top-phase-3"
+                                                dur="600ms"
+                                                to="173.5 47 283.05 236.75 63.95 236.75"
+                                                attributeName="points"
+                                                fill="freeze"
+                                                begin="shape.click"
+                                    />
+                                </polygon>
+                                <!-- original triangle: 173.5 189 283.05 378.75 63.95 378.75 -->
+                                <polygon id="logo-bottom-phase-1" 
+                                            transform="translate(173.5, 265.5) rotate(-30) translate(-173.5, -315.5)" 
+                                            points="63.95 378.75 107.77 378.75 63.95 378.75">
+                                    <animate id="logo-bottom-phase-2"
+                                                dur="600ms"
+                                                to="63.95 378.75 283.05 378.75 63.95 378.75"
+                                                attributeName="points"
+                                                fill="freeze"
+                                                begin="shape.click"
+                                    />
+                                    <animate id="logo-bottom-phase-3"
+                                                dur="600ms"
+                                                to="173.5 189 283.05 378.75 63.95 378.75"
+                                                attributeName="points"
+                                                fill="freeze"
+                                                begin="shape.click"
+                                    />
+                                </polygon>
+                            </g>
+                        </g>
+                    </svg>
                 </div>
             </div>
         </div>
     </body>
+    <script>
+        let animateLogo = () => {
+            document.getElementById('logo-top-phase-1').animate([{transform: "translate(173.5px, 223.5px) rotate(-30deg) translate(-173.5px, -173.5px"}, {transform: "translate(173.5px, 173.5px) rotate(-30deg) translate(-173.5px, -173.5px"}], {duration: 800, fill: "both", easing: "ease-in-out"});
+            document.getElementById('logo-bottom-phase-1').animate([{transform: "translate(173.5px, 265.5px) rotate(-30deg) translate(-173.5px, -315.5px)"}, {transform: "translate(173.5px, 315.5px) rotate(-30deg) translate(-173.5px, -315.5px)"}], {duration: 800, fill: "both", easing: "ease-in-out"});
+            document.getElementById('BigHorrorAthensLogo').animate([{fill: "white"}, {fill: "black"}], {duration: 600, fill: "both", delay: 1200});
+            document.getElementById('logo-top-phase-2').beginElement()
+            document.getElementById('logo-bottom-phase-2').beginElement()
+        }
+        let animateLogo2 = () => {
+            document.getElementById('logo-top-phase-3').beginElement()
+            document.getElementById('logo-bottom-phase-3').beginElement()
+        }
+        let animatePromise = () => {
+            let animateLogoPromise = new Promise(animateLogo);
+            let animateLogoPromise2 = new Promise(setTimeout(animateLogo2, 400));
+            console.log('animating promise');
+            animateLogoPromise.then(animateLogoPromise2);
+        }
+        setTimeout(animatePromise, 1200);
+    </script>
 </html>
+
+<!-- yellow: #feff00; -->
+<!-- pink: #ff00ff; -->
+<!-- turquoise: #00ffff; -->

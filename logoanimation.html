@@ -10,14 +10,14 @@
                      transform="translate(173.5, 173.5) rotate(-30) translate(-173.5, -173.5)" 
                      points="173.5 47 195.41 84.95 173.5 47">
                 <animate id="logo-top-phase-2"
-                         dur="800ms"
+                         dur="400ms"
                          to="173.5 47 283.05 236.75 173.5 47"
                          attributeName="points"
                          fill="freeze"
                          begin="shape.click"
                 />
                 <animate id="logo-top-phase-3"
-                         dur="800ms"
+                         dur="400ms"
                          to="173.5 47 283.05 236.75 63.95 236.75"
                          attributeName="points"
                          fill="freeze"
@@ -29,14 +29,14 @@
                      transform="translate(173.5, 315.5) rotate(-30) translate(-173.5, -315.5)" 
                      points="63.95 378.75 107.77 378.75 63.95 378.75">
                 <animate id="logo-bottom-phase-2"
-                         dur="800ms"
+                         dur="400ms"
                          to="63.95 378.75 283.05 378.75 63.95 378.75"
                          attributeName="points"
                          fill="freeze"
                          begin="shape.click"
                 />
                 <animate id="logo-bottom-phase-3"
-                         dur="800ms"
+                         dur="400ms"
                          to="173.5 189 283.05 378.75 63.95 378.75"
                          attributeName="points"
                          fill="freeze"
@@ -62,7 +62,7 @@
     }
     let animatePromise = () => {
         let animateLogoPromise = new Promise(animateLogo);
-        let animateLogoPromise2 = new Promise(setTimeout(animateLogo2, 800));
+        let animateLogoPromise2 = new Promise(setTimeout(animateLogo2, 400));
         console.log('animating promise');
         animateLogoPromise.then(animateLogoPromise2);
     }
