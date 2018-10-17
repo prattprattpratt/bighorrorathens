@@ -106,8 +106,26 @@
                 line-height: 3.2rem;
                 margin: 2rem 0;
             }
-            .hero-text h1 {
+            .hero-text h1.hero-text-line, .hero-text h1.hero-text-line2 {
                 margin: 0;
+                overflow: hidden;
+                transition: all 0.5s;
+                box-sizing: border-box;
+
+            }
+            .hero-text h1.hero-text-line {
+                padding-bottom: 61px;
+                margin-bottom: -11px;
+                height: 51px;
+                animation: hero-text-line-height 10s infinite;
+                animation-delay: 6s;
+            }
+            .hero-text h1.hero-text-line2 {
+                padding-bottom: 0;
+                margin-bottom: 0px;
+                height: 0;
+                animation: hero-text-line2-height 10s infinite;
+                animation-delay: 6s;
             }
             .select-works-link {
                 position: relative;
@@ -261,6 +279,20 @@
                 90% { height: 30px; }
                 100% { height: 0; }
             }
+            @keyframes hero-text-line-height {
+                0% { padding-bottom: 61px; height: 51px; margin-bottom: -11px; }
+                36% { padding-bottom: 61px; height: 51px; margin-bottom: -11px; }
+                40% { padding-bottom: 0; height: 0; margin-bottom: 0px; }
+                96% { padding-bottom: 0; height: 0; margin-bottom: 0px; }
+                100% { padding-bottom: 61px; height: 51px; margin-bottom: -11px; }
+            }
+            @keyframes hero-text-line2-height {
+                0% { padding-bottom: 0; height: 0; margin-bottom: 0px; }
+                36% { padding-bottom: 0; height: 0; margin-bottom: 0px; }
+                40% { padding-bottom: 61px; height: 51px; margin-bottom: -11px; }
+                96% { padding-bottom: 61px; height: 51px; margin-bottom: -11px; }
+                100% { padding-bottom: 0; height: 0; margin-bottom: 0px; }
+            }
         </style>
     </head>
     <body>
@@ -330,11 +362,16 @@
                     <span class="coming-soon-text">Full Website Coming Soon</span>
                 </div>
                 <div class="hero-text">
-                    <h1>Right or wrong,</h1>
-                    <h1>it's very pleasant</h1>
-                    <h1>to break</h1>
-                    <h1>something from</h1>
-                    <h1>time to time.*</h1>
+                    <h1 class="hero-text-line">Right or wrong,</h1>
+                    <h1 class="hero-text-line2">So, we broke our</h1>
+                    <h1 class="hero-text-line">it's very pleasant</h1>
+                    <h1 class="hero-text-line2">tired old website</h1>
+                    <h1 class="hero-text-line">to break</h1>
+                    <h1 class="hero-text-line2">to make</h1>
+                    <h1 class="hero-text-line">something from</h1>
+                    <h1 class="hero-text-line2">something more</h1>
+                    <h1 class="hero-text-line">time to time.*</h1>
+                    <h1 class="hero-text-line2">awesome.</h1>
                 </div>
                 <a href="#" class="select-works-link">
                     SELECTED WORKS
@@ -427,9 +464,6 @@
                 cube.position.y += (up ? fast ? 0.1 : medium ? 0.05 : 0.02 : fast ? -0.1 : medium ? -.05 : -.02);
                 cube.rotation.x += Math.random()*.1;
                 cube.rotation.y += Math.random()*.1;
-
-//                cube.position.x += 1*Math.cos(t) + 0;
-//                cube.position.z += 1*Math.sin(t) + 0;
             });
 
             renderer.render( scene, camera );
