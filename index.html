@@ -125,16 +125,47 @@
                 height: 3px;
                 background: black;
                 content: '';
-                transition: all 0.4s;
-            }
-            .select-works-link:hover:after {
-                height: 30px;
-                bottom: -42px;
             }
             .hero-text-author {
                 position: absolute;
                 right: 10px;
                 bottom: 10px;
+            }
+            .underline-line {
+                position: absolute;
+                width: 100%;
+                bottom: -12px;
+                left: 0;
+                transform: rotate(180deg);
+                transform-origin: bottom;
+            }
+            .turquoise-underline {
+                background: #00ffff;
+                z-index: 1;
+            }
+            .select-works-link:hover .turquoise-underline {
+                animation: turquoise-underline-height 1s infinite;
+            }
+            .pink-underline {
+                background: #ff00ff;
+                z-index: 2;
+            }
+            .select-works-link:hover .pink-underline {
+                animation: pink-underline-height 1s infinite;
+            }
+            .yellow-underline {
+                background: #feff00;
+                z-index: 3;
+            }
+            .select-works-link:hover .yellow-underline {
+                animation: yellow-underline-height 1s infinite;
+            }
+            .black-underline {
+                background: black;
+                z-index: 4;
+            }
+            .select-works-link:hover .black-underline {
+                animation: black-underline-height 1s infinite;
             }
 
             @keyframes logo-to-top-right {
@@ -200,6 +231,35 @@
                 86.66% { padding: 100%; z-index: 8; }
                 86.67% { padding: 300px; z-index: 12; }
                 100% { padding: 100%; z-index: 12; }
+            }
+            @keyframes turquoise-underline-height {
+                0% { height: 0; }
+                20% { height: 30px; }
+                75% { height: 30px; }
+                90% { height: 30px; }
+                100% { height: 0; }
+            }
+            @keyframes pink-underline-height {
+                0% { height: 0; }
+                35% { height: 30px; }
+                75% { height: 30px; }
+                90% { height: 30px; }
+                100% { height: 0; }
+            }
+            @keyframes yellow-underline-height {
+                0% { height: 0; }
+                50% { height: 30px; }
+                75% { height: 30px; }
+                90% { height: 30px; }
+                100% { height: 0; }
+            }
+            @keyframes black-underline-height {
+                0% { height: 0; }
+                10% { height: 0; }
+                65% { height: 30px; }
+                75% { height: 30px; }
+                90% { height: 30px; }
+                100% { height: 0; }
             }
         </style>
     </head>
@@ -276,7 +336,13 @@
                     <h1>something from</h1>
                     <h1>time to time.*</h1>
                 </div>
-                <a href="#" class="select-works-link">SELECTED WORKS</a>
+                <a href="#" class="select-works-link">
+                    SELECTED WORKS
+                    <span class="turquoise-underline underline-line"></span>
+                    <span class="pink-underline underline-line"></span>
+                    <span class="yellow-underline underline-line"></span>
+                    <span class="black-underline underline-line"></span>
+                </a>
                 <span class="hero-text-author">* Fyodor Dostoyevsky</span>
             </div>
         </div>
@@ -309,24 +375,62 @@
         renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( renderer.domElement );
 
-        for (let i = -50; i < 50; i++) {
-            var geometry = new THREE.BoxGeometry( .8, .8, .8 );
+        let cubes = [];
+
+        for (let i = -80; i < 80; i++) {
+            var geometry = new THREE.Geometry();
+
+            geometry.vertices = [
+                new THREE.Vector3( 0, 0, 0 ),
+                new THREE.Vector3( 0, 1, 0 ),
+                new THREE.Vector3( 1, 1, 0 ),
+                new THREE.Vector3( 1, 0, 0 ),
+                new THREE.Vector3( 0.5, 0.5, 1 )
+            ];
+
+            geometry.faces = [
+                new THREE.Face3( 0, 1, 2 ),
+                new THREE.Face3( 0, 2, 3 ),
+                new THREE.Face3( 1, 0, 4 ),
+                new THREE.Face3( 2, 1, 4 ),
+                new THREE.Face3( 3, 2, 4 ),
+                new THREE.Face3( 0, 3, 4 )
+            ];  
+
             var material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
             var cube = new THREE.Mesh( geometry, material );
-            cube.position.set(Math.random() * (-90 - 90) + 90, Math.random() * (-50 - 50) + 50, Math.random() * (-50 - 50) + 50);
-            cube.rotation.x += i * 2;
-            cube.rotation.y += i * 2;
+            cube.position.set(Math.floor(Math.random() * (90 + 91)) - 90, Math.floor(Math.random() * (90 + 91)) - 90, Math.floor(Math.random() * (90 + 91)) - 90);
             scene.add( cube );
+            cubes.push(cube);
         }
 
         scene.background = new THREE.Color( 0xffffff );
 
         camera.position.z = 105;
 
+        let t = 0;
         var animate = function () {
             requestAnimationFrame( animate );
 
-            scene.rotation.y += 0.008;
+            const seconds = Math.round(Date.now() / 1000);
+            const fiveSeconds = Math.round(seconds / 5);
+            const up = fiveSeconds % 2 === 0;
+            const fast = [0, 4].includes(seconds % 5);
+            const medium = [1, 3].includes(seconds % 5);
+
+            t++;
+            scene.rotation.y += 0.006;
+
+            cubes.forEach(function(cube) {
+                const z = cube.position.z;
+                const x = cube.position.x;
+                cube.position.y += (up ? fast ? 0.1 : medium ? 0.05 : 0.02 : fast ? -0.1 : medium ? -.05 : -.02);
+                cube.rotation.x += Math.random()*.1;
+                cube.rotation.y += Math.random()*.1;
+
+//                cube.position.x += 1*Math.cos(t) + 0;
+//                cube.position.z += 1*Math.sin(t) + 0;
+            });
 
             renderer.render( scene, camera );
         };
